@@ -1,0 +1,18 @@
+{
+  "Courses": "Cursos",
+  "Subjects": "Asignaturas",
+  "Subject": "Asignatura",
+  "Students": "Estudiantes",
+  "Add": "Añadir",
+  "Name": "Nombre",
+  "Last Name": "Apellido",
+  "Teacher": "Profesor",
+  "Class Schedule": "Horario de clases",
+  "Start time": "Hor. Inicio",
+  "End time": "Hor. Fin",
+  "Monday": "Lunes",
+  "Tuesday": "Martes",
+  "Wednesday": "Miercoles",
+  "Thursday": "Jueves",
+  "Friday": "Viernes"
+}

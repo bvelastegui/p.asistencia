@@ -1,23 +1,71 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="{{ isset($courseId) ? 'col-md-4': 'col-md-12' }}">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h4 class="mb-0">{{__('Courses')}}</h4>
+                            <div>
+                                <a href="#courseModal" class="btn btn-sm btn-outline-secondary" data-toggle="modal">
+                                    {{__('Add')}}
+                                </a>
+                            </div>
                         </div>
-                    @endif
-
-                    You are logged in!
+                    </div>
+                    <div class="list-group list-group-flush">
+                        @foreach($courses as $course)
+                            <div class="list-group-item{{ isset($courseId) && $courseId == $course->id ? ' active': '' }}">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <div>
+                                        <h5 class="mb-0">{{ $course->name }}</h5>
+                                        <p>{{ $course->level }}</p>
+                                    </div>
+                                    <div>
+                                        <a class="btn btn-link btn-sm" href="?course={{ $course->id }}">
+                                            <i class="material-icons">settings</i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
+            @if(!is_null($courseId))
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <ul class="nav nav-tabs card-header-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link{{ $activeTab == 'students' ? ' active':'' }}"
+                                       href="?course={{$courseId}}&tab=students">{{__('Students')}}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link{{ $activeTab == 'subjects' ? ' active':'' }}"
+                                       href="?course={{$courseId}}&tab=subjects">{{__('Subjects')}}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link{{ $activeTab == 'classSchedule' ? ' active':'' }}"
+                                       href="?course={{$courseId}}&tab=classSchedule">{{__('Class Schedule')}}</a>
+                                </li>
+                            </ul>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                                    onclick="window.location = '/'">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="card-body tab-content">
+                            @includeWhen($activeTab == 'students', 'course.students', ['course' => $courseId])
+                            @includeWhen($activeTab == 'subjects', 'course.subjects', ['course' => $courseId])
+                            @includeWhen($activeTab == 'classSchedule', 'course.classSchedule', ['course' => $courseId])
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
-</div>
+    @include('modals.course')
 @endsection
