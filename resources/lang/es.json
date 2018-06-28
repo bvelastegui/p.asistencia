@@ -14,5 +14,16 @@
   "Tuesday": "Martes",
   "Wednesday": "Miercoles",
   "Thursday": "Jueves",
-  "Friday": "Viernes"
+  "Friday": "Viernes",
+  "Identity": "Nº de cédula",
+  "Password": "Contraseña",
+  "Login": "Ingresar",
+  "Remember Me": "No cerrar sesión",
+  "Add course": "Añadir curso",
+  "Add student": "Añadir estudiante",
+  "Add subject": "Añadir asignatura",
+  "Level": "Nivel",
+  "Close": "Cerrar",
+  "Save": "Guardar",
+  "Theme": "Tema a tratar"
 }

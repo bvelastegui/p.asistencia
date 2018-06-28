@@ -23,9 +23,13 @@
                                         <h5 class="mb-0">{{ $course->name }}</h5>
                                         <p>{{ $course->level }}</p>
                                     </div>
-                                    <div>
+                                    <div class="text-right">
+                                        <a href="{{route('reports.index',['course' => $course->id])}}"
+                                           class="btn btn-link btn-sm">
+                                            <i class="material-icons" style="color: var(--secondary)">assessment</i>
+                                        </a>
                                         <a class="btn btn-link btn-sm" href="?course={{ $course->id }}">
-                                            <i class="material-icons">settings</i>
+                                            <i class="material-icons" style="color: var(--secondary)">settings</i>
                                         </a>
                                     </div>
                                 </div>

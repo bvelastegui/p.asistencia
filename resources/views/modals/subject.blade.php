@@ -16,7 +16,7 @@
                     <input type="text" class="form-control" name="name" id="name" required>
                 </div>
                 <div class="form-group">
-                    <label for="teacher">{{__('Theacher')}}:</label>
+                    <label for="teacher">{{__('Teacher')}}:</label>
                     <select name="teacher" class="form-control" id="teacher" required>
                         <option></option>
                         @foreach($users->teachers() as $teacher)

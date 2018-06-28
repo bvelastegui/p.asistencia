@@ -36,3 +36,4 @@ Route::get('/courses/{courseId}/subjects', 'CourseController@subjects')->name('c
 Route::post('/courses/{courseId}/subjects', 'CourseController@storeSubjects')->name('courses.subjects.store');
 Route::post('/courses/{courseId}/classSchedule', 'CourseController@storeClassSchedule')->name('courses.classSchedule.store');
 Route::delete('/courses/{courseId}/classSchedule', 'CourseController@deleteClassSchedule')->name('courses.classSchedule.delete');
+Route::get('/reports/{course}','ReportsController@index')->name('reports.index');

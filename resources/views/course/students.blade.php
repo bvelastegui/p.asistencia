@@ -22,9 +22,6 @@
                 <td>{{ $student->lastName }}</td>
                 <td class="text-right">
                     <a href="/students/{{$student->id}}/delete">
-                        <i class="material-icons" style="color: var(--warning)">settings</i>
-                    </a>
-                    <a href="/students/{{$student->id}}/delete">
                         <i class="material-icons" style="color: var(--danger)">delete_forever</i>
                     </a>
                 </td>
