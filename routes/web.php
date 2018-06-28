@@ -26,7 +26,10 @@ $this->post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::resource('courses', 'CourseController');
-Route::get('/subjects', 'SubjectController@index')->name('subjects.index');
+Route::get('/schedules', 'ScheduleController@index')->name('schedules.index');
+Route::get('/workDay/{date}/{subject}', 'WorkDayController@edit')->name('workDays.edit');
+Route::post('/workDay/{date}/{subject}', 'WorkDayController@store')->name('workDays.store');
+Route::put('/workDay/{date}/{subject}', 'WorkDayController@update')->name('workDays.update');
 Route::get('/courses/{courseId}/students', 'CourseController@students')->name('courses.students');
 Route::post('/courses/{courseId}/students', 'CourseController@storeStudents')->name('courses.students.store');
 Route::get('/courses/{courseId}/subjects', 'CourseController@subjects')->name('courses.subjects');

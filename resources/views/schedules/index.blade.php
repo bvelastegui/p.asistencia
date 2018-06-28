@@ -5,10 +5,12 @@
         <div class="text-muted ml-3 mb-3">{{ __(date('l')) }}, {{ date('d \d\e M') }}</div>
         <div class="list-group mb-3">
             @forelse($schedules as $schedule)
-                <div class="list-group-item">
+                <a class="list-group-item"
+                   href="{{route('workDays.edit',['subject' => $schedule->subject->id, 'date' => date('Y-m-d')])}}">
                     <div>{{$schedule->subject->name}}</div>
+                    <p class="text-muted">{{$schedule->subject->course->name}}</p>
                     <small class="text-muted">{{$schedule->start}} - {{ $schedule->end }}</small>
-                </div>
+                </a>
             @empty
                 <div class="alert alert-success" role="alert">
                     <h4 class="alert-heading">Bien</h4>

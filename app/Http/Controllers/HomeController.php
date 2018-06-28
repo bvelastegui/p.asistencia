@@ -19,8 +19,8 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
-        if ($request->user()->role == 'teacher') {
-            return redirect()->route('subjects.index');
+        if ($request->user()->role === 'teacher') {
+            return redirect()->route('schedules.index');
         }
 
         $courses = Course::all();
