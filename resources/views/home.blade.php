@@ -1,5 +1,9 @@
 @extends('layouts.app')
-
+{{--TODO: Los alumnos no se eliminan solamente se puede activarlos o desactivarlos--}}
+{{--TODO: Las asignaturas no se eliminan solamente se puede activarlos o desactivarlos--}}
+{{--TODO: Las asignaturas no se eliminan solamente se puede activarlos o desactivarlos--}}
+{{--TODO: Los cursos pueden se modificados (nombre y nivel)--}}
+{{--TODO: El administrador otorga claves temporales y al ingresar el usuario ingresa una clave personal--}}
 @section('content')
     <div class="container-fluid">
         <div class="row">

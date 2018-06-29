@@ -53,16 +53,16 @@
                     @foreach($students as $student)
                         <tr>
                             <td>{{$student->last_name}} {{$student->name}}</td>
+                            @php($attendance = $workDay->exists ? \App\Attendance::where('work_day_id', $workDay->id)->where('student_id', $student->id)->first():new \App\Attendance(['status' => 'present']))
                             @foreach(['present', 'late', 'absent', 'justified'] as $status)
                                 <td width="10" class="text-center">
                                     <div class="custom-control custom-radio">
-                                        @php($attendance=$workDay->exists?\App\Attendance::where('work_day_id', $workDay->id)->where('student_id', $student->id)->first():new \App\Attendance(['status' => 'present']))
                                         <input {{ $status == $attendance->status ? 'checked ': '' }}type="radio"
                                                id="customRadio_{{$status}}_{{$student->id}}"
                                                name="attendances[{{$student->id}}]" class="custom-control-input"
                                                value="{{$status}}" title="{{$status}}">
                                         <label class="custom-control-label"
-                                               for="customRadio_{{$status}}_{{$student->id}}">{{strtoupper(substr($status,0,1))}}</label>
+                                               for="customRadio_{{$status}}_{{$student->id}}">&nbsp;</label>
                                     </div>
                                 </td>
                             @endforeach

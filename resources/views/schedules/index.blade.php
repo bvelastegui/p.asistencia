@@ -8,7 +8,7 @@
                 <a class="list-group-item"
                    href="{{route('workDays.edit',['subject' => $schedule->subject->id, 'date' => date('Y-m-d')])}}">
                     <div>{{$schedule->subject->name}}</div>
-                    <p class="text-muted">{{$schedule->subject->course->name}}</p>
+                    <p class="text-muted">{{ $schedule->subject->course->name }} - {{ $schedule->subject->course->level }}</p>
                     <small class="text-muted">{{$schedule->start}} - {{ $schedule->end }}</small>
                 </a>
             @empty

@@ -1,7 +1,7 @@
 {
   "Courses": "Cursos",
-  "Subjects": "Asignaturas",
-  "Subject": "Asignatura",
+  "Subjects": "Materias",
+  "Subject": "Materia",
   "Students": "Estudiantes",
   "Add": "Añadir",
   "Name": "Nombre",
@@ -25,5 +25,9 @@
   "Level": "Nivel",
   "Close": "Cerrar",
   "Save": "Guardar",
-  "Theme": "Tema a tratar"
+  "Theme": "Tema a tratar",
+  "Present": "Presente",
+  "Late": "Atrasado",
+  "Absent" :"Ausente",
+  "Justified": "Justificado"
 }
