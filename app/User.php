@@ -2,9 +2,15 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * Class User
+ * @package App
+ * @mixin Builder
+ */
 class User extends Authenticatable
 {
     use Notifiable;
