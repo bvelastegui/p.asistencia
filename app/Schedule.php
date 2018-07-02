@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class Schedule extends Model
 {
     protected $fillable = [
-        'course_id', 'subject_id', 'start', 'end', 'day'
+        'subject_id', 'start', 'end', 'day'
     ];
 
     public function subject()

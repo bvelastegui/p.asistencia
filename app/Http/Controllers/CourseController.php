@@ -13,13 +13,10 @@ class CourseController extends Controller
 {
     public function index(Request $request)
     {
-        if ($request->user()->role == 'admin') {
-            $courses = Course::all();
-        } else {
-            $courses = Course::whereUserId($request->user()->id)->get();
-        }
-
-        return new JsonResponse($courses);
+        $courses = Course::all();
+        $courseId = $request->get('course', null);
+        $activeTab = $request->get('tab', 'students');
+        return view('course.index', compact('courses', 'courseId', 'activeTab'));
     }
 
     public function students($courseId)

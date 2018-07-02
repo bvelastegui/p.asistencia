@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Attendance;
+use App\Subject;
 use App\WorkDay;
 use Illuminate\Http\Request;
 
@@ -13,12 +14,13 @@ class WorkDayController extends Controller
         $this->middleware('auth');
     }
 
-    public function edit($date, $subject)
+    public function edit($date, Subject $subject)
     {
-        $workDayQuery = WorkDay::where('date', $date)->where('subject_id', $subject);
-        $workDay = $workDayQuery->exists() ? $workDayQuery->first() : new WorkDay(['subject_id' => $subject, 'date' => $date]);
-        return view('workDays.edit', compact('workDay'));
+        $subject->load('course:id,name,level');
+        $workDayQuery = WorkDay::where('date', $date)->where('subject_id', $subject->id)->first();
+        $workDay = $workDayQuery ?? new WorkDay(['subject_id' => $subject->id, 'date' => $date]);
 
+        return view('workDays.edit', compact('workDay', 'subject'));
     }
 
     public function store(Request $request, $date, $subject)
@@ -27,8 +29,8 @@ class WorkDayController extends Controller
             $request,
             ['theme' => 'required', 'start' => 'required'],
             [
-                'theme.required' => __('The theme is required'),
-                'start.required' => __('Must record the start time')
+                'theme.required' => __('Ingrese el tema a tratar'),
+                'start.required' => __('Ingrese la hora de inicio')
             ]
         );
         $workDay = new WorkDay();
@@ -36,6 +38,7 @@ class WorkDayController extends Controller
         $workDay->theme = $request->get('theme');
         $workDay->subject_id = $subject;
         $workDay->start = date('H:i:s');
+        $workDay->end = null;
         $workDay->save();
 
         foreach ($request->post('attendances') as $student_id => $status) {

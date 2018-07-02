@@ -2,6 +2,10 @@
 
 @section('content')
     <div class="container">
+        <h2 class="mb-0">
+            {{$subject->name}}
+        </h2>
+        <p class="lead">{{$subject->course->name}} - {{ $subject->course->level }}</p>
         @if(session()->has('success'))
             <div class="alert alert-success">
                 {{session()->get('success')}}
@@ -16,8 +20,9 @@
                 </ul>
             </div>
         @endif
+
         <form class="card" method="post"
-              action="{{$workDay->exists ? route('workDays.update', ['date' => $workDay->date, 'subject' => $workDay->subject->id]): route('workDays.store', ['date' => $workDay->date, 'subject' => $workDay->subject->id])}}">
+              action="{{$workDay->exists ? route('workDays.update', ['date' => $workDay->date, 'subject' => $subject->id]): route('workDays.store', ['date' => $workDay->date, 'subject' => $subject->id])}}">
             @csrf
             @if($workDay->exists)
                 @method('PUT')
@@ -43,15 +48,16 @@
                 <table class="table table-bordered mb-0">
                     <thead>
                     <tr>
+                        <th>N°</th>
                         <th>Nómina</th>
                         @foreach(['Present', 'Late', 'Absent', 'Justified'] as $status)
                             <th>{{__($status)}}</th>
                         @endforeach
                     </tr>
                     </thead>
-                    @php($students = $workDay->subject->course->students)
-                    @foreach($students as $student)
+                    @foreach($subject->course->students as $student)
                         <tr>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{$student->last_name}} {{$student->name}}</td>
                             @php($attendance = $workDay->exists ? \App\Attendance::where('work_day_id', $workDay->id)->where('student_id', $student->id)->first():new \App\Attendance(['status' => 'present']))
                             @foreach(['present', 'late', 'absent', 'justified'] as $status)

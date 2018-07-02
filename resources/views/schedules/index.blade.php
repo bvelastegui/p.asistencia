@@ -2,13 +2,14 @@
 
 @section('content')
     <div class="container">
-        <div class="text-muted ml-3 mb-3">{{ __(date('l')) }}, {{ date('d \d\e M') }}</div>
+        <div class="text-muted ml-3 mb-3">{{ __($day) }}, {{ env('APP_DEBUG') ? '26 de junio': date('d \d\e M') }}</div>
         <div class="list-group mb-3">
             @forelse($schedules as $schedule)
                 <a class="list-group-item"
-                   href="{{route('workDays.edit',['subject' => $schedule->subject->id, 'date' => date('Y-m-d')])}}">
+                   href="{{route('workDays.edit',['subject' => $schedule->subject->id, 'date' => env('APP_DEBUG') ? '2018-06-26': date('Y-m-d')])}}">
                     <div>{{$schedule->subject->name}}</div>
-                    <p class="text-muted">{{ $schedule->subject->course->name }} - {{ $schedule->subject->course->level }}</p>
+                    <p class="text-muted">{{ $schedule->subject->course->name }}
+                        - {{ $schedule->subject->course->level }}</p>
                     <small class="text-muted">{{$schedule->start}} - {{ $schedule->end }}</small>
                 </a>
             @empty

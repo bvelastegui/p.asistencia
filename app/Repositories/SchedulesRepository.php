@@ -17,8 +17,9 @@ class SchedulesRepository
 
     public function byCourseAndDay($courseId, $day)
     {
-        return $this->model->with('subject')->where('course_id', $courseId)
-            ->where('day', $day)
+        return $this->model->whereHas('subject', function ($query) use ($courseId) {
+            $query->where('course_id', $courseId);
+        })->where('day', $day)
             ->orderBy('start')
             ->get();
     }

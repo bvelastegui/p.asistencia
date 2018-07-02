@@ -18,4 +18,19 @@ class SubjectsRepository
     {
         return $this->model->whereCourseId($course_id)->get();
     }
+
+    public function workByDateAndCourse($date, $course)
+    {
+        $query = $this->model->newModelQuery();
+
+        $query->whereHas('course', function ($query) use ($course) {
+            $query->where('id', $course);
+        });
+
+        $query->whereHas('workDays', function ($query) use ($date) {
+            $query->where('date', $date);
+        });
+
+        return $query->get();
+    }
 }

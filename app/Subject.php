@@ -27,8 +27,8 @@ class Subject extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function students()
+    public function workDays()
     {
-        return $this->course->students;
+        return $this->hasMany(WorkDay::class);
     }
 }

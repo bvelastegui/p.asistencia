@@ -36,4 +36,8 @@ Route::get('/courses/{courseId}/subjects', 'CourseController@subjects')->name('c
 Route::post('/courses/{courseId}/subjects', 'CourseController@storeSubjects')->name('courses.subjects.store');
 Route::post('/courses/{courseId}/classSchedule', 'CourseController@storeClassSchedule')->name('courses.classSchedule.store');
 Route::delete('/courses/{courseId}/classSchedule', 'CourseController@deleteClassSchedule')->name('courses.classSchedule.delete');
-Route::get('/reports/{course}','ReportsController@index')->name('reports.index');
+Route::get('/reports/{course}/{date?}','ReportsController@index')->name('reports.index');
+Route::get('/users/changePassword','UserController@changePassword')->name('users.changePassword');
+Route::post('/users/changePassword','UserController@storePassword')->name('users.storePassword');
+Route::get('/users/{user?}','UserController@index')->name('users.index');
+Route::put('/users/{user}','UserController@update')->name('users.update');

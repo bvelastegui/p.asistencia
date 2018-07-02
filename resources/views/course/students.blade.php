@@ -9,7 +9,7 @@
             <th>{{__('Last Name')}}</th>
             <th class="text-right">
                 <a href="#studentModal" data-toggle="modal" class="btn btn-sm btn-outline-secondary">
-                    {{__('Add')}}
+                    {{__('Add student')}}
                 </a>
             </th>
         </tr>
@@ -17,13 +17,24 @@
         <tbody>
         @foreach($students->byCourse($course) as $k => $student)
             <tr>
-                <td>{{($k + 1)}}</td>
+                <td>{{ $loop->iteration }}</td>
                 <td>{{ $student->name }}</td>
-                <td>{{ $student->lastName }}</td>
+                <td>{{ $student->last_name }}</td>
                 <td class="text-right">
-                    <a href="/students/{{$student->id}}/delete">
-                        <i class="material-icons" style="color: var(--danger)">delete_forever</i>
-                    </a>
+                    <button style="height: 30px; width: 30px;" type="button" class="btn btn-sm btn-outline-primary p-1">
+                        <i class="material-icons" style="font-size: 20px">edit</i>
+                    </button>
+                    @if($student->active)
+                        <button style="height: 30px; width: 30px;" type="button"
+                                class="btn btn-sm btn-outline-warning p-1">
+                            <i class="material-icons" style="font-size: 20px">visibility_off</i>
+                        </button>
+                    @else
+                        <button style="height: 30px; width: 30px;" type="button"
+                                class="btn btn-sm btn-outline-success p-1">
+                            <i class="material-icons" style="font-size: 20px">visibility</i>
+                        </button>
+                    @endif
                 </td>
             </tr>
         @endforeach

@@ -10,7 +10,10 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     protected $fillable = [
-        'name', 'lastName', 'course_id'
+        'name',
+        'last_name',
+        'course_id',
+        'active'
     ];
 
     public function course()

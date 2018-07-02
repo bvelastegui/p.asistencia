@@ -16,10 +16,10 @@ class CreateWorkDaysTable extends Migration
         Schema::create('work_days', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('subject_id');
-            $table->string('theme')->nullable();
+            $table->string('theme')->nullable()->default(null);
             $table->date('date');
             $table->time('start');
-            $table->time('end')->nullabe();
+            $table->time('end')->nullable()->default(null);
             $table->timestamps();
         });
     }
