@@ -73,4 +73,26 @@ class UserController extends Controller
 
         return redirect()->route('schedules.index');
     }
+
+    public function store(Request $request)
+    {
+        $this->validate($request,
+            [
+                'name' => 'required',
+                'identity' => 'required|unique:users,identity',
+                'email' => 'required|unique:users,email',
+                'password' => 'required|min:4|confirmed'
+            ]
+        );
+
+        $newUser = User::create([
+            'name' => $request->get('name'),
+            'identity' => $request->get('identity'),
+            'email' => $request->get('email'),
+            'password' => Hash::make($request->get('password')),
+            'change_password_on_next_login' => $request->has('change_password_on_next_login')
+        ]);
+
+        return redirect()->route('users.index', ['user' => $newUser->id]);
+    }
 }

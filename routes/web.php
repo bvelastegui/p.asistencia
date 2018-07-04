@@ -41,3 +41,4 @@ Route::get('/users/changePassword','UserController@changePassword')->name('users
 Route::post('/users/changePassword','UserController@storePassword')->name('users.storePassword');
 Route::get('/users/{user?}','UserController@index')->name('users.index');
 Route::put('/users/{user}','UserController@update')->name('users.update');
+Route::post('/users','UserController@store')->name('users.store');

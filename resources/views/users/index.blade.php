@@ -6,6 +6,11 @@
             <div class="{{ is_null($selected_user) ? 'col-md-12': 'col-md-3' }}">
                 <div class="card">
                     <div class="list-group list-group-flush">
+                        <div class="list-group-item">
+                            <button class="btn btn-secondary btn-block" data-toggle="modal" data-target="#userModal">
+                                Añadir usuario
+                            </button>
+                        </div>
                         @foreach($users as $user)
                             <div class="list-group-item d-flex justify-content-between{{ !is_null($selected_user) && $selected_user->id == $user->id ? ' active': '' }}">
                                 <div>
@@ -58,10 +63,22 @@
                         </div>
                     @endif
                     <form class="card" method="post">
-                        <div class="card-header">Editar usuario</div>
+                        <div class="card-header">
+                            Editar usuario
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                                    onclick="window.location = '/users'">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         @csrf
                         @method('put')
                         <div class="card-body">
+                            @if($selected_user->change_password_on_next_login)
+                                <div class="alert alert-dismiss alert-info">
+                                    <h5 class="mb-0">Cambio de contraseña pendiente</h5>
+                                    <p>El usuario tiene pendiente el cambio de contraseña</p>
+                                </div>
+                            @endif
                             <div class="form-group">
                                 <label for="identity">N° de cédula:</label>
                                 <input type="text" name="identity" maxlength="10" id="identity" class="form-control"
@@ -110,4 +127,5 @@
             @endif
         </div>
     </div>
+    @include('modals.user')
 @endsection
