@@ -1,8 +1,4 @@
 @extends('layouts.app')
-{{--TODO: Las asignaturas no se eliminan solamente se puede activarlos o desactivarlos--}}
-{{--TODO: Las asignaturas no se eliminan solamente se puede activarlos o desactivarlos--}}
-{{--TODO: Los cursos pueden se modificados (nombre y nivel)--}}
-{{--TODO: El administrador otorga claves temporales y al ingresar el usuario ingresa una clave personal--}}
 @section('content')
     <div class="container">
         <div class="card-columns">
@@ -89,12 +85,13 @@
                         <div class="display-3">
                             {{ $hours->hours_this_month ?? '0' }}
                         </div>
-                        <div class="lead">Horas registradas</div>
+                        <div class="lead">Horas registradas este mes</div>
                     </div>
                 </div>
                 <div class="card-footer text-center p-2">
-                    <div style="font-size: 0.7875rem;" class="p-1">Horas registradas este mes
-                    </div>
+                    <a href="{{ route('reports.show') }}" class="btn btn-sm btn-block btn-link p-1">
+                        Ver o crear reportes
+                    </a>
                 </div>
             </div>
         </div>

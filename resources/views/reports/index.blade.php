@@ -55,7 +55,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($course->students as $student)
+                                @foreach($course->students()->where('active', true)->get() as $student)
                                     @php($sums = ['present' => 0, 'late' => 0, 'absent' => 0, 'justified' => 0])
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>

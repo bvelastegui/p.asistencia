@@ -1,9 +1,5 @@
 @extends('layouts.app')
-{{--TODO: Los alumnos no se eliminan solamente se puede activarlos o desactivarlos--}}
 {{--TODO: Las asignaturas no se eliminan solamente se puede activarlos o desactivarlos--}}
-{{--TODO: Las asignaturas no se eliminan solamente se puede activarlos o desactivarlos--}}
-{{--TODO: Los cursos pueden se modificados (nombre y nivel)--}}
-{{--TODO: El administrador otorga claves temporales y al ingresar el usuario ingresa una clave personal--}}
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -48,6 +44,10 @@
                         <div class="card-header d-flex justify-content-between">
                             <ul class="nav nav-tabs card-header-tabs" role="tablist">
                                 <li class="nav-item">
+                                    <a class="nav-link{{ $activeTab == 'default' ? ' active':'' }}"
+                                       href="?course={{$courseId}}&tab=default">{{__('Editar información')}}</a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link{{ $activeTab == 'students' ? ' active':'' }}"
                                        href="?course={{$courseId}}&tab=students">{{__('Students')}}</a>
                                 </li>
@@ -66,6 +66,27 @@
                             </button>
                         </div>
                         <div class="card-body tab-content">
+                            @if($activeTab === 'default')
+                                @php($course = \App\Course::find($courseId))
+                                <form id="default" class="tab-pane active" method="post">
+                                    @csrf
+                                    @method('put')
+                                    <input type="hidden" name="id" value="{{$course->id}}">
+                                    <div class="form-group">
+                                        <label for="name">Nombre:</label>
+                                        <input type="text" name="name" id="name" class="form-control" required
+                                               value="{{ $course->name }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="level">Nivel:</label>
+                                        <input type="text" name="level" id="level" class="form-control" required
+                                               value="{{ $course->level }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-primary" type="submit">Guardar cambios</button>
+                                    </div>
+                                </form>
+                            @endif
                             @includeWhen($activeTab == 'students', 'course.students', ['course' => $courseId])
                             @includeWhen($activeTab == 'subjects', 'course.subjects', ['course' => $courseId])
                             @includeWhen($activeTab == 'classSchedule', 'course.classSchedule', ['course' => $courseId])

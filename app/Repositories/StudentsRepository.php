@@ -16,6 +16,6 @@ class StudentsRepository
 
     public function byCourse($course_id)
     {
-        return $this->model->whereCourseId($course_id)->get();
+        return $this->model->whereCourseId($course_id)->orderBy('last_name')->get();
     }
 }

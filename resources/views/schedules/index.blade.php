@@ -2,16 +2,21 @@
 
 @section('content')
     <div class="container">
-        <div class="text-muted ml-3 mb-3">{{ __($day) }}, {{ env('APP_DEBUG') ? '26 de junio': date('d \d\e M') }}</div>
+        <div class="text-muted ml-3 mb-3">{{ __($day) }}, {{ date('d \d\e M') }}</div>
         <div class="list-group mb-3">
             @forelse($schedules as $schedule)
-                <a class="list-group-item"
-                   href="{{route('workDays.edit',['subject' => $schedule->subject->id, 'date' => env('APP_DEBUG') ? '2018-06-26': date('Y-m-d')])}}">
-                    <div>{{$schedule->subject->name}}</div>
-                    <p class="text-muted">{{ $schedule->subject->course->name }}
-                        - {{ $schedule->subject->course->level }}</p>
-                    <small class="text-muted">{{$schedule->start}} - {{ $schedule->end }}</small>
-                </a>
+                <div class="list-group-item d-flex justify-content-between">
+                    <div>
+                        <div>{{$schedule->subject->name}}</div>
+                        <p class="text-muted">{{ $schedule->subject->course->name }}
+                            - {{ $schedule->subject->course->level }}</p>
+                        <small class="text-muted">{{$schedule->start}} - {{ $schedule->end }}</small>
+                    </div>
+                    <div>
+                        <a href="{{route('workDays.edit',['subject' => $schedule->subject->id, 'date' => date('Y-m-d')])}}"
+                           class="btn btn-primary">Registrar asistencia</a>
+                    </div>
+                </div>
             @empty
                 <div class="alert alert-success" role="alert">
                     <h4 class="alert-heading">Bien</h4>
@@ -19,6 +24,55 @@
                 </div>
             @endforelse
         </div>
-        <div class="text-muted ml-3 mb-3">Días pasados</div>
+        <div class="mb-3">
+            <div class="form-inline text-muted ml-3 mb-3">
+                Por fecha
+                <input type="text"
+                       name="date"
+                       id="fecha"
+                       class="form-control form-control-sm ml-3 bg-transparent"
+                       placeholder="Seleccione una fecha"
+                       value="{{ $selected_date }}">
+            </div>
+            @forelse($lastSchedules as $lastSchedule)
+                <div class="list-group-item d-flex justify-content-between">
+                    <div>
+                        <div>{{$schedule->subject->name}}</div>
+                        <p class="text-muted">{{ $schedule->subject->course->name }}
+                            - {{ $schedule->subject->course->level }}</p>
+                        <small class="text-muted">{{$schedule->start}} - {{ $schedule->end }}</small>
+                    </div>
+                    <div>
+                        <a href="{{route('workDays.edit',['subject' => $schedule->subject->id, 'date' => $selected_date])}}"
+                           class="btn btn-primary">Actualizar asistencia</a>
+                    </div>
+                </div>
+            @empty
+                <div class="alert alert-info" role="alert">
+                    <p>Al parecer hoy no tienes horas de clase registradas para esta fecha</p>
+                </div>
+            @endforelse
+        </div>
     </div>
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            flatpickr('#fecha', {
+                locale: 'es',
+                altInput: true,
+                altFormat: "l, j \\de F",
+                dateFormat: "Y-m-d",
+                maxDate: '{{ \Carbon\Carbon::now()->subDay()->format('Y-m-d') }}',
+                enable: [
+                    function (date) {
+                        return (date.getDay() !== 6 && date.getDay() !== 0);
+                    }
+                ],
+            });
+
+            $('#fecha').on('change', function () {
+                let $date = $(this).val();
+                window.location = '{{ route('schedules.index') }}?date=' + $date
+            })
+        })
+    </script>
 @endsection

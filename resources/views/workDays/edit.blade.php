@@ -55,7 +55,7 @@
                         @endforeach
                     </tr>
                     </thead>
-                    @foreach($subject->course->students as $student)
+                    @foreach($subject->course->students()->where('active', true)->get() as $student)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{$student->last_name}} {{$student->name}}</td>
