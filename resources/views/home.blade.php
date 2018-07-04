@@ -87,7 +87,7 @@
                     <i class="material-icons display-2">schedule</i>
                     <div class="text-right">
                         <div class="display-3">
-                            {{ $hours->hours_this_month }}
+                            {{ $hours->hours_this_month ?? '0' }}
                         </div>
                         <div class="lead">Horas registradas</div>
                     </div>

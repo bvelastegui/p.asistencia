@@ -61,7 +61,7 @@
                                 </li>
                             </ul>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"
-                                    onclick="window.location = '/'">
+                                    onclick="window.location = '/courses'">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
