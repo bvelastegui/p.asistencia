@@ -38,7 +38,7 @@ class HomeController extends Controller
         $students = Student::count();
         $subjects = Subject::count();
         $schedules = Schedule::selectRaw(DB::raw('SUM(HOUR(TIMEDIFF(start, end))) as hours_per_subject'))->groupBy('subject_id')->get();
-        $hours = WorkDay::selectRaw(DB::raw('SUM(HOUR(TIMEDIFF(start, end))) as hours_this_month'))->whereRaw(DB::raw('MONTH(date) = MONTH(now())'))->first();
+        $hours = WorkDay::selectRaw(DB::raw('SUM(HOUR(TIMEDIFF(start, end))) as hours_reported'))->first();
         return view('home', compact('courses', 'users', 'students', 'subjects', 'schedules', 'hours'));
     }
 }

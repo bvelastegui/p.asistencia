@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @section('content')
+    <style>
+        .btn-link {
+            font-weight: bold !important;
+        }
+    </style>
     <div class="container">
         <div class="card-columns">
             <div class="card">
@@ -83,9 +88,9 @@
                     <i class="material-icons display-2">schedule</i>
                     <div class="text-right">
                         <div class="display-3">
-                            {{ $hours->hours_this_month ?? '0' }}
+                            {{ $hours->hours_reported ?? '0' }}
                         </div>
-                        <div class="lead">Horas registradas este mes</div>
+                        <div class="lead">Horas laboradas</div>
                     </div>
                 </div>
                 <div class="card-footer text-center p-2">
