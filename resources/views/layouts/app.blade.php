@@ -38,6 +38,21 @@
 
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
+                    @auth
+                        <li class="nav-item">
+                            <a href="{{ route('home') }}"
+                               class="nav-link{{ request()->route()->getName() === 'home' ? ' active': ''}}">Inicio</a>
+                        </li>
+                        @if(auth()->user()->role === 'admin')
+                            <li class="nav-item">
+                                <a href="{{ route('courses.index') }}"
+                                   class="nav-link{{ request()->route()->getName() === 'courses.index' ? ' active': '' }}">Cursos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('users.index') }}" class="nav-link">Usuarios</a>
+                            </li>
+                        @endif
+                    @endauth
                 </ul>
 
                 <!-- Right Side Of Navbar -->

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
     protected $fillable = [
-        'name', 'level'
+        'name', 'level', 'code', 'period'
     ];
 
     public function students()

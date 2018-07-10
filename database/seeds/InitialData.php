@@ -24,6 +24,14 @@ class InitialData extends Seeder
             ['subject_id' => 4, 'start' => '18:00', 'end' => '20:00', 'day' => 'Tuesday'],
             ['subject_id' => 5, 'start' => '20:00', 'end' => '21:00', 'day' => 'Tuesday'],
         ]);
+        DB::table('work_days')->insert([
+            ['subject_id' => 1, 'theme' => 'Theme 0', 'date' => '2018-06-18', 'start' => '16:00', 'end' => '19:00'],
+            ['subject_id' => 2, 'theme' => 'Sub theme 0', 'date' => '2018-06-18', 'start' => '19:00', 'end' => '21:00'],
+            ['subject_id' => 1, 'theme' => 'Theme 1', 'date' => '2018-06-25', 'start' => '16:00', 'end' => '19:00'],
+            ['subject_id' => 1, 'theme' => 'Sub theme 1', 'date' => '2018-06-25', 'start' => '19:00', 'end' => '21:00'],
+            ['subject_id' => 1, 'theme' => 'Theme 2', 'date' => '2018-07-02', 'start' => '16:00', 'end' => '19:00'],
+            ['subject_id' => 1, 'theme' => 'Sub theme 2', 'date' => '2018-07-02', 'start' => '19:00', 'end' => '21:00'],
+        ]);
     }
 
     protected function createAdministrators(): void

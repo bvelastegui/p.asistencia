@@ -23,7 +23,9 @@ class ScheduleController extends Controller
             $query->select('id')->where('user_id', $userId);
         })->where('day', $day)->get();
 
-        $selected_date = $request->get('date', Carbon::now()->subDay()->format('Y-m-d'));
+        $now = Carbon::now();
+        $yesterday = $now->subDay();
+        $selected_date = $request->get('date', $yesterday->isSunday() || $yesterday->isSaturday() ? $now->previous(5)->format('Y-m-d') : $yesterday->format('Y-m-d'));
 
         $lastSchedules = Schedule::whereHas('subject', function ($query) use ($selected_date, $userId) {
             $query->where('user_id', $userId);
@@ -33,15 +35,5 @@ class ScheduleController extends Controller
         })->get();
 
         return view('schedules.index', compact('schedules', 'day', 'lastSchedules', 'selected_date'));
-    }
-
-    public function edit($scheduleId)
-    {
-
-    }
-
-    public function store()
-    {
-
     }
 }

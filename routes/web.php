@@ -35,6 +35,7 @@ Route::put('/courses/{courseId}/students', 'CourseController@updateStudents')->n
 Route::post('/courses/{courseId}/students', 'CourseController@storeStudents')->name('courses.students.store');
 Route::get('/courses/{courseId}/subjects', 'CourseController@subjects')->name('courses.subjects');
 Route::post('/courses/{courseId}/subjects', 'CourseController@storeSubjects')->name('courses.subjects.store');
+Route::put('/courses/{courseId}/subjects', 'CourseController@updateSubjects')->name('courses.subjects.update');
 Route::post('/courses/{courseId}/classSchedule', 'CourseController@storeClassSchedule')->name('courses.classSchedule.store');
 Route::delete('/courses/{courseId}/classSchedule', 'CourseController@deleteClassSchedule')->name('courses.classSchedule.delete');
 Route::get('/users/changePassword', 'UserController@changePassword')->name('users.changePassword');
@@ -44,3 +45,4 @@ Route::put('/users/{user}', 'UserController@update')->name('users.update');
 Route::post('/users', 'UserController@store')->name('users.store');
 Route::get('/reports/{course}/{date?}', 'ReportsController@index')->name('reports.index');
 Route::get('/reports', 'ReportsController@show')->name('reports.show');
+Route::post('/reports', 'ReportsController@generate')->name('reports.generate');

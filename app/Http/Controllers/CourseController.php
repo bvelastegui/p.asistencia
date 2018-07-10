@@ -20,33 +20,22 @@ class CourseController extends Controller
         return view('course.index', compact('courses', 'courseId', 'activeTab'));
     }
 
-    public function students($courseId)
-    {
-        $students = Student::whereCourseId($courseId)->get();
-
-        return new JsonResponse($students);
-    }
-
-    public function subjects($courseId)
-    {
-        $subjects = Subject::whereCourseId($courseId)->get();
-
-        return new JsonResponse($subjects);
-    }
-
     public function store(Request $request)
     {
         $this->validate($request, [
             'name' => 'required|min:6',
-            'level' => 'required'
+            'level' => 'required',
+            'period' => 'required'
         ]);
 
         $newCourse = Course::create([
             'name' => $request->get('name'),
-            'level' => $request->get('level')
+            'level' => $request->get('level'),
+            'code' => $request->get('code'),
+            'period' => $request->get('period'),
         ]);
 
-        return redirect()->route('home', ['course' => $newCourse->id]);
+        return redirect()->route('courses.index', ['course' => $newCourse->id]);
     }
 
     public function storeStudents(Request $request, $courseId)
@@ -126,5 +115,20 @@ class CourseController extends Controller
         Student::where('id', $request->get('id'))->update($request->only('name', 'last_name'));
 
         return redirect()->route('courses.index', ['course' => $courseId, 'tab' => 'students']);
+    }
+
+    public function updateSubjects(Request $request, $courseId)
+    {
+        if ($request->has('active')) {
+            Subject::where('id', $request->get('id'))->update([
+                'active' => $request->get('active')
+            ]);
+
+            return redirect()->route('courses.index', ['course' => $courseId, 'tab' => 'subjects']);
+        }
+
+        Subject::where('id', $request->get('id'))->update($request->only('name', 'user_id'));
+
+        return redirect()->route('courses.index', ['course' => $courseId, 'tab' => 'subjects']);
     }
 }

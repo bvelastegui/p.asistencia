@@ -1,5 +1,3 @@
-@inject('users', 'App\Repositories\UsersRepository' )
-
 <div class="modal fade" id="subjectModal" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <form class="modal-content" method="post" action="{{route('courses.subjects.store', ['courseId' => $course])}}">
@@ -19,7 +17,7 @@
                     <label for="teacher">{{__('Teacher')}}:</label>
                     <select name="teacher" class="form-control" id="teacher" required>
                         <option></option>
-                        @foreach($users->teachers() as $teacher)
+                        @foreach($teachers as $teacher)
                             <option value="{{$teacher->id}}">{{$teacher->name}}</option>
                         @endforeach
                     </select>

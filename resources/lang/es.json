@@ -36,5 +36,7 @@
   "Confirm Password": "Confirmar contraseña",
   "Reset Password": "Reestablecer contraseña",
   "Send Password Reset Link": "Enviar enlace para restablecer contraseña",
-  "Logout": "Cerrar sesión"
+  "Logout": "Cerrar sesión",
+  "Code": "ID curso",
+  "Pending": "Pendiente"
 }

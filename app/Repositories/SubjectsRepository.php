@@ -16,7 +16,7 @@ class SubjectsRepository
 
     public function byCourse($course_id)
     {
-        return $this->model->whereCourseId($course_id)->get();
+        return $this->model->with('teacher')->whereCourseId($course_id)->get();
     }
 
     public function workByDateAndCourse($date, $course)
