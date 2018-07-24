@@ -28,6 +28,8 @@ class CourseController extends Controller
             'level' => 'required',
             'period' => 'required',
             'code' => 'required|unique:courses,code'
+        ], [
+            'code.unique' => 'El ID de curso ya fue utilizado, por favor, cambie el ID de curso.'
         ]);
 
         if ($validator->fails()) {
