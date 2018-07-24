@@ -5,7 +5,7 @@
     <div class="row">
       <div class="{{ isset($courseId) ? 'col-md-4': 'col-md-12' }}">
         <div class="text-right mb-3">
-          <a href="#courseModal" class="btn btn-sm btn-outline-secondary" data-toggle="modal">
+          <a href="#courseModal" id="createCourse" class="btn btn-sm btn-outline-secondary" data-toggle="modal">
             {{__('Add course')}}
           </a>
         </div>

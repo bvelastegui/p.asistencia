@@ -9,6 +9,7 @@ use App\Subject;
 use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CourseController extends Controller
 {
@@ -22,11 +23,16 @@ class CourseController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'name' => 'required|min:6',
             'level' => 'required',
-            'period' => 'required'
+            'period' => 'required',
+            'code' => 'required|unique:courses,code'
         ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('error1', true)->withErrors($validator)->withInput();
+        }
 
         $newCourse = Course::create([
             'name' => $request->get('name'),
