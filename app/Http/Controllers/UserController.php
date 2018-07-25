@@ -43,9 +43,9 @@ class UserController extends Controller
 
             $updates = $request->only('identity', 'email', 'name');
 
-            if ($password = $request->get('password')) {
-                $updates['password'] = Hash::make($password);
-            }
+            if ($password = $request->get('password')) $updates['password'] = Hash::make($password);
+
+            if ($request->has('is_admin')) $updates['is_admin'] = true;
 
             $updates['change_password_on_next_login'] = $request->has('change_password_on_next_login') ? true : false;
 

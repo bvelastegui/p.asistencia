@@ -1,5 +1,4 @@
-@extends('layouts.app')
-{{--TODO: Las asignaturas no se eliminan solamente se puede activarlos o desactivarlos--}}
+@extends('layouts.admin')
 @section('content')
   <div class="container-fluid">
     <div class="row">
@@ -61,7 +60,7 @@
                 </li>
               </ul>
               <button type="button" class="close" data-dismiss="alert" aria-label="Close"
-                      onclick="window.location = '/courses'">
+                      onclick="window.location = '{{ route('courses.index') }}'">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>

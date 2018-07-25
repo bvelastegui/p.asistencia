@@ -59,7 +59,7 @@ class ReportsController extends Controller
   (SELECT SUM(TIMESTAMPDIFF(WEEK, ?, ?)))      as weeks
 FROM schedules sc
   INNER JOIN subjects sub ON sc.subject_id = sub.id
-  INNER JOIN users u on sub.user_id = u.id AND u.role = 'teacher'
+  INNER JOIN users u on sub.user_id = u.id
 GROUP BY u.id", [$start, $end]);
 
         return collect($teachers)->each(function ($item) use ($start, $end) {

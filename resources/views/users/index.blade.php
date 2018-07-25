@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
-  <div class="container-fluid">
+  <div class="{{ is_null($selected_user) ? 'container' : 'container-fluid'  }}">
     <div class="row">
       <div class="{{ is_null($selected_user) ? 'col-md-12': 'col-md-3' }}">
         <div class="card">
@@ -16,8 +16,7 @@
                   class="list-group-item d-flex justify-content-between{{ !is_null($selected_user) && $selected_user->id == $user->id ? ' active': '' }}">
                 <div class="d-flex justify-content-start">
                   @if($user->role === 'admin')
-                    <i class="material-icons mr-3"
-                       style="font-size: 40px!important; ">how_to_reg</i>
+                    <i class="material-icons mr-3" style="font-size: 40px!important; ">how_to_reg</i>
                   @endif
                   <div>
                     <h5 class="mb-0">
@@ -26,29 +25,30 @@
                     <p>{{ $user->identity }}</p>
                   </div>
                 </div>
-                <div>
+                <div class="text-right">
                   <a href="{{ route('users.index', ['user' => $user->id]) }}"
-                     class="btn btn-outline-secondary btn-sm" style="height: 32px">
-                    <i class="material-icons">settings</i>
+                     class="btn btn-secondary btn-sm d-flex justify-content-start">
+                    <i class="mr-2 material-icons">edit</i>
+                    <span class="p-1">Editar usuario</span>
                   </a>
-                  @if($user->role !== 'admin')
-                    <form action="{{ route('users.update', ['user' => $user->id]) }}" method="post">
-                      @csrf
-                      @method('put')
-                      @if($user->active)
-                        <button title="Desactivar usuario" class="btn btn-sm btn-outline-danger"
-                                style="height: 32px" type="submit" name="active" value="0">
-                          <i class="material-icons">visibility_off</i>
-                        </button>
-                      @else
-                        <button title="Activar usuario" style="height: 32px;"
-                                class="btn btn-outline-success btn-sm"
-                                type="submit" name="active" value="1">
-                          <i class="material-icons">visibility</i>
-                        </button>
-                      @endif
-                    </form>
-                  @endif
+                  <form action="{{ route('users.update', ['user' => $user->id]) }}" method="post">
+                    @csrf
+                    @method('put')
+                    @if($user->active)
+                      <button title="Desactivar usuario" class="btn btn-sm btn-danger d-flex justify-content-start mt-2"
+                               type="submit" name="active" value="0">
+                        <i class="mr-2 material-icons">visibility_off</i>
+                        <span class="p-1">Deshabilitar usuario</span>
+                      </button>
+                    @else
+                      <button title="Activar usuario"
+                              class="btn btn-success btn-sm d-flex justify-content-start"
+                              type="submit" name="active" value="1">
+                        <i class="material-icons">visibility</i>
+                        <span class="p-1">Habilitar usuario</span>
+                      </button>
+                    @endif
+                  </form>
                 </div>
               </div>
             @endforeach
@@ -75,7 +75,7 @@
             <div class="card-header">
               Editar usuario
               <button type="button" class="close" data-dismiss="alert" aria-label="Close"
-                      onclick="window.location = '/users'">
+                      onclick="window.location = '{{ route('users.index') }}'">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -117,6 +117,11 @@
                        name="change_password_on_next_login" class="custom-control-input">
                 <label class="custom-control-label" for="change_password_on_next_login">Solicitar cambio
                   de contraseña al próximo inicio de sesión</label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" id="is_admin1" name="is_admin"
+                       class="custom-control-input" {{ $selected_user->is_admin ? 'checked':'' }}>
+                <label class="custom-control-label" for="is_admin1">Conceder permisos de administrador</label>
               </div>
             </div>
             <div class="card-footer">

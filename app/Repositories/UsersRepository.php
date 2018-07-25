@@ -19,6 +19,6 @@ class UsersRepository
      */
     public function teachers()
     {
-        return $this->model->whereRole('teacher')->get();
+        return $this->model->all();
     }
 }

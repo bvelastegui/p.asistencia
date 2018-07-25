@@ -1,10 +1,18 @@
-<div class="modal fade" id="userModal" role="dialog" aria-hidden="true">
+@if(session()->has('admin.error'))
+  <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          $('#addAdmin').trigger('click')
+      })
+  </script>
+@endif
+<div class="modal fade" id="adminModal" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <form class="modal-content" method="post"
           action="{{route('users.store')}}">
       @csrf
+      <input type="hidden" name="role" value="admin">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Añadir usuario</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Añadir un administrador</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -31,14 +39,10 @@
           <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" required>
         </div>
         <div class="custom-control custom-checkbox">
-          <input type="checkbox" id="change_password_on_next_login1"
+          <input type="checkbox" id="change_password_on_next_login"
                  name="change_password_on_next_login" class="custom-control-input">
-          <label class="custom-control-label" for="change_password_on_next_login1">Solicitar cambio de contraseña al
+          <label class="custom-control-label" for="change_password_on_next_login">Solicitar cambio de contraseña al
             próximo inicio de sesión</label>
-        </div>
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" id="is_admin" name="is_admin" class="custom-control-input">
-          <label class="custom-control-label" for="is_admin">Conceder permisos de administrador</label>
         </div>
       </div>
       <div class="modal-footer">

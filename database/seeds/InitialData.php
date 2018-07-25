@@ -12,8 +12,7 @@ class InitialData extends Seeder
      */
     public function run()
     {
-        $this->createAdministrators();
-        $this->createTeachers();
+        $this->createUsers();
         $this->createCourses();
         $this->createSubjects();
         $this->createStudents();
@@ -24,36 +23,18 @@ class InitialData extends Seeder
             ['subject_id' => 4, 'start' => '18:00', 'end' => '20:00', 'day' => 'Tuesday'],
             ['subject_id' => 5, 'start' => '20:00', 'end' => '21:00', 'day' => 'Tuesday'],
         ]);
-        DB::table('work_days')->insert([
-            ['subject_id' => 1, 'theme' => 'Theme 0', 'date' => '2018-06-18', 'start' => '16:00', 'end' => '19:00'],
-            ['subject_id' => 2, 'theme' => 'Sub theme 0', 'date' => '2018-06-18', 'start' => '19:00', 'end' => '21:00'],
-            ['subject_id' => 1, 'theme' => 'Theme 1', 'date' => '2018-06-25', 'start' => '16:00', 'end' => '19:00'],
-            ['subject_id' => 1, 'theme' => 'Sub theme 1', 'date' => '2018-06-25', 'start' => '19:00', 'end' => '21:00'],
-            ['subject_id' => 1, 'theme' => 'Theme 2', 'date' => '2018-07-02', 'start' => '16:00', 'end' => '19:00'],
-            ['subject_id' => 1, 'theme' => 'Sub theme 2', 'date' => '2018-07-02', 'start' => '19:00', 'end' => '21:00'],
-        ]);
     }
 
-    protected function createAdministrators(): void
+    protected function createUsers(): void
     {
         $password = '$2y$10$3ew0.Mw5Z2wL7/cEp/kopeiTsX.Ysbdf.dIuhhX4OaMRnTZylqBBi';
 
         DB::table('users')->insert([
-            ['id' => 1, 'name' => 'Administrador', 'identity' => '1234567890', 'email' => 'admin@intitec.com', 'password' => $password, 'role' => 'admin'],
-            ['id' => 2, 'name' => 'Administrador 1', 'identity' => '012345678', 'email' => 'admin1@intitec.com', 'password' => $password, 'role' => 'admin']
-        ]);
-    }
-
-    protected function createTeachers(): void
-    {
-        $password = '$2y$10$3ew0.Mw5Z2wL7/cEp/kopeiTsX.Ysbdf.dIuhhX4OaMRnTZylqBBi';
-
-        DB::table('users')->insert([
-            ['id' => 3, 'name' => 'Fernando Jacome', 'identity' => '1234567891', 'email' => 'fjacome@intitec.com', 'password' => $password, 'role' => 'teacher'],
-            ['id' => 4, 'name' => 'Darwin Duque', 'identity' => '1234567892', 'email' => 'dduque@intitec.com', 'password' => $password, 'role' => 'teacher'],
-            ['id' => 5, 'name' => 'Edison Guaman', 'identity' => '1234567893', 'email' => 'eguaman@intitec.com', 'password' => $password, 'role' => 'teacher'],
-            ['id' => 6, 'name' => 'Alfonso Andrade', 'identity' => '1234567894', 'email' => 'aandrade@intitec.com', 'password' => $password, 'role' => 'teacher'],
-            ['id' => 7, 'name' => 'Flavio Pachacama', 'identity' => '1234567895', 'email' => 'fpachacama@intitec.com', 'password' => $password, 'role' => 'teacher']
+            ['id' => 3, 'name' => 'Fernando Jacome', 'identity' => '1234567891', 'email' => 'fjacome@intitec.com', 'is_admin' => false, 'password' => $password],
+            ['id' => 4, 'name' => 'Darwin Duque', 'identity' => '1234567892', 'email' => 'dduque@intitec.com', 'is_admin' => false, 'password' => $password],
+            ['id' => 5, 'name' => 'Edison Guaman', 'identity' => '1234567893', 'email' => 'eguaman@intitec.com', 'is_admin' => false, 'password' => $password],
+            ['id' => 6, 'name' => 'Alfonso Andrade', 'identity' => '1234567894', 'email' => 'aandrade@intitec.com', 'is_admin' => true, 'password' => $password],
+            ['id' => 7, 'name' => 'Flavio Pachacama', 'identity' => '1234567895', 'email' => 'fpachacama@intitec.com', 'is_admin' => false, 'password' => $password]
         ]);
     }
 

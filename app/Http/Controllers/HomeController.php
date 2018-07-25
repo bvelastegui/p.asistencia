@@ -25,20 +25,22 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
-        if ($request->user()->change_password_on_next_login) {
+        $user = $request->user();
+        session()->put('multiple', false);
+
+        if ($user->change_password_on_next_login) {
             return redirect()->route('users.changePassword');
         }
 
-        if ($request->user()->role === 'teacher') {
+        if ($user->is_admin) {
+            if ($user->subjects()->count() > 0) {
+                session()->put('multiple', true);
+                return view('home');
+            } else {
+                return redirect()->route('admin.index');
+            }
+        } else {
             return redirect()->route('schedules.index');
         }
-
-        $courses = Course::count();
-        $users = User::count();
-        $students = Student::count();
-        $subjects = Subject::count();
-        $schedules = Schedule::selectRaw(DB::raw('SUM(HOUR(TIMEDIFF(start, end))) as hours_per_subject'))->groupBy('subject_id')->get();
-        $hours = WorkDay::selectRaw(DB::raw('SUM(HOUR(TIMEDIFF(start, end))) as hours_reported'))->first();
-        return view('home', compact('courses', 'users', 'students', 'subjects', 'schedules', 'hours'));
     }
 }
