@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'noreply@repo.intiec.edu.ec'),
+        'name' => env('MAIL_FROM_NAME', 'Intitec - Asistencia de alumnos'),
     ],
 
     /*
@@ -99,7 +99,7 @@ return [
     |
     */
 
-    'sendmail' => '/usr/sbin/sendmail -bs',
+    'sendmail' => '/usr/local/sbin/sendmail -t',
 
     /*
     |--------------------------------------------------------------------------
