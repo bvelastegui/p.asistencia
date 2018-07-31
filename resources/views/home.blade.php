@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('perfil','Seleccione un perfil')
 @section('content')
   <div class="container">
     <h1 class="text-center mb-5">Usted cuenta con varios perfiles, a cual desea ingresar</h1>

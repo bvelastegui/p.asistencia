@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('perfil', 'Administrador')
 @section('nav')
   <ul class="navbar-nav mr-auto">
     <li class="nav-item">

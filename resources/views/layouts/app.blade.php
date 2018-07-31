@@ -46,7 +46,13 @@
           @else
             @if(session()->get('multiple',false) )
               <li class="nav-item">
-                <a href="{{ route('home') }}" class="nav-link font-weight-bold">Cambiar de perfil</a>
+                <span class="navbar-text pr-3">
+                  <b>Perfil:</b>
+                  <span style="text-decoration: underline;">@yield('perfil','Profesor')</span>
+                </span>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('home') }}" class="nav-link font-weight-bold pr-3">Cambiar de perfil</a>
               </li>
             @endif
             <li class="nav-item dropdown">
