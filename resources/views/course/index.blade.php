@@ -39,6 +39,11 @@
       </div>
       @if(!is_null($courseId))
         <div class="col-md-8">
+          @if(session()->has('success'))
+            <div class="alert alert-success w-75 mx-auto mb-3">
+              {{ session()->get('success') }}
+            </div>
+          @endif
           <div class="card">
             <div class="card-header d-flex justify-content-between">
               <ul class="nav nav-tabs card-header-tabs" role="tablist">
@@ -67,7 +72,8 @@
             <div class="card-body tab-content">
               @if($activeTab === 'default')
                 @php($course = \App\Course::find($courseId))
-                <form id="default" class="tab-pane active" method="post">
+                <form id="default" class="tab-pane active" method="post"
+                      action="{{ route('courses.update', ['course' => $courseId] ) }}">
                   @csrf
                   @method('put')
                   <input type="hidden" name="id" value="{{$course->id}}">
@@ -95,6 +101,7 @@
                     <div class="form-group">
                       <button class="btn btn-primary" type="submit">Guardar cambios</button>
                     </div>
+                  </div>
                 </form>
               @endif
               @includeWhen($activeTab == 'students', 'course.students', ['course' => $courseId])

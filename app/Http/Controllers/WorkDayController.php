@@ -30,7 +30,7 @@ class WorkDayController extends Controller
             ['theme' => 'required', 'start' => 'required'],
             [
                 'theme.required' => __('Ingrese el tema a tratar'),
-                'start.required' => __('Ingrese la hora de inicio')
+                'start.required' => __('Ingrese la hora de inicio'),
             ]
         );
         $workDay = new WorkDay();
@@ -42,14 +42,19 @@ class WorkDayController extends Controller
         $workDay->save();
 
         foreach ($request->post('attendances') as $student_id => $status) {
-            Attendance::create([
-                'work_day_id' => $workDay->id,
-                'status' => $status,
-                'student_id' => $student_id
-            ]);
+            Attendance::create(
+                [
+                    'work_day_id' => $workDay->id,
+                    'status' => $status,
+                    'student_id' => $student_id,
+                ]
+            );
         }
 
-        return redirect()->route('workDays.edit', ['date' => $date, 'subject' => $subject])->with('success', 'Los cambios se registraron con exito!');
+        return redirect()->route('workDays.edit', ['date' => $date, 'subject' => $subject])->with(
+            'success',
+            'Los cambios se registraron con éxito'
+        );
     }
 
 
@@ -69,6 +74,9 @@ class WorkDayController extends Controller
                 ->update(['status' => $status]);
         }
 
-        return redirect()->route('workDays.edit', ['date' => $date, 'subject' => $subject])->with('success', 'Los cambios se registraron con exito!');
+        return redirect()->route('workDays.edit', ['date' => $date, 'subject' => $subject])->with(
+            'success',
+            'Los cambios se registraron con éxito.'
+        );
     }
 }

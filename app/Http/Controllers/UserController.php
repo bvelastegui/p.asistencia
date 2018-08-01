@@ -28,31 +28,41 @@ class UserController extends Controller
         if ($request->has('active')) {
             $user->update(['active' => $request->get('active')]);
         } else {
-            $this->validate($request, [
-                'identity' => [
-                    'required',
-                    Rule::unique('users')->ignore($user->identity, 'identity')
-                ],
-                'email' => [
-                    'required',
-                    Rule::unique('users')->ignore($user->email, 'email')
-                ],
-                'name' => 'required',
-                'password' => 'nullable|min:6|confirmed'
-            ]);
+            $this->validate(
+                $request,
+                [
+                    'identity' => [
+                        'required',
+                        Rule::unique('users')->ignore($user->identity, 'identity'),
+                    ],
+                    'email' => [
+                        'required',
+                        Rule::unique('users')->ignore($user->email, 'email'),
+                    ],
+                    'name' => 'required',
+                    'password' => 'nullable|min:6|confirmed',
+                ]
+            );
 
             $updates = $request->only('identity', 'email', 'name');
 
-            if ($password = $request->get('password')) $updates['password'] = Hash::make($password);
+            if ($password = $request->get('password')) {
+                $updates['password'] = Hash::make($password);
+            }
 
-            if ($request->has('is_admin')) $updates['is_admin'] = true;
+            if ($request->has('is_admin')) {
+                $updates['is_admin'] = true;
+            }
 
             $updates['change_password_on_next_login'] = $request->has('change_password_on_next_login') ? true : false;
 
             $user->update($updates);
         }
 
-        return redirect()->route('users.index', ['user' => $user->id]);
+        return redirect()->route('users.index', ['user' => $user->id])->with(
+            'success',
+            'La información fue actualizada con éxito.'
+        );
     }
 
     public function changePassword()
@@ -62,37 +72,47 @@ class UserController extends Controller
 
     public function storePassword(Request $request)
     {
-        $this->validate($request, [
-            'password' => 'required|min:6|confirmed'
-        ]);
+        $this->validate(
+            $request,
+            [
+                'password' => 'required|min:6|confirmed',
+            ]
+        );
 
         $user = User::find(auth()->id());
         $user->password = Hash::make($request->get('password'));
+        $user->is_admin = $request->has('is_admin') ? true : false;
         $user->change_password_on_next_login = false;
         $user->save();
 
-        return redirect()->route('schedules.index');
+        return redirect()->route('schedules.index')->with('success', 'La contraseña fue actualizada con éxito');
     }
 
     public function store(Request $request)
     {
-        $this->validate($request,
+        $this->validate(
+            $request,
             [
                 'name' => 'required',
                 'identity' => 'required|unique:users,identity',
                 'email' => 'required|unique:users,email',
-                'password' => 'required|min:4|confirmed'
+                'password' => 'required|min:4|confirmed',
             ]
         );
 
-        $newUser = User::create([
-            'name' => $request->get('name'),
-            'identity' => $request->get('identity'),
-            'email' => $request->get('email'),
-            'password' => Hash::make($request->get('password')),
-            'change_password_on_next_login' => $request->has('change_password_on_next_login')
-        ]);
+        $newUser = User::create(
+            [
+                'name' => $request->get('name'),
+                'identity' => $request->get('identity'),
+                'email' => $request->get('email'),
+                'password' => Hash::make($request->get('password')),
+                'change_password_on_next_login' => $request->has('change_password_on_next_login'),
+            ]
+        );
 
-        return redirect()->route('users.index', ['user' => $newUser->id]);
+        return redirect()->route('users.index', ['user' => $newUser->id])->with(
+            'success',
+            'El usuario fue creado con éxito.'
+        );
     }
 }

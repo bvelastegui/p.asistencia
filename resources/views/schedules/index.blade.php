@@ -37,13 +37,13 @@
       @forelse($lastSchedules as $lastSchedule)
         <div class="list-group-item d-flex justify-content-between">
           <div>
-            <div>{{$schedule->subject->name}}</div>
-            <p class="text-muted">{{ $schedule->subject->course->name }}
-              - {{ $schedule->subject->course->level }}</p>
-            <small class="text-muted">{{$schedule->start}} - {{ $schedule->end }}</small>
+            <div>{{$lastSchedule->subject->name}}</div>
+            <p class="text-muted">{{ $lastSchedule->subject->course->name }}
+              - {{ $lastSchedule->subject->course->level }}</p>
+            <small class="text-muted">{{$lastSchedule->start}} - {{ $lastSchedule->end }}</small>
           </div>
           <div>
-            <a href="{{route('workDays.edit',['subject' => $schedule->subject->id, 'date' => $selected_date])}}"
+            <a href="{{route('workDays.edit',['subject' => $lastSchedule->subject->id, 'date' => $selected_date])}}"
                class="btn btn-primary">Actualizar asistencia</a>
           </div>
         </div>
