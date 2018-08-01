@@ -10,17 +10,28 @@
         </button>
       </div>
       <div class="modal-body">
+        @if($errors->any())
+          <div class="alert alert-danger">
+            <b>Existen varios errores:</b>
+            <ul>
+              @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+              @endforeach
+            </ul>
+          </div>
+        @endif
         <div class="form-group">
           <label for="name">Nombre completo:</label>
-          <input type="text" class="form-control" name="name" id="name" required>
+          <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}" required>
         </div>
         <div class="form-group">
           <label for="identity">Nº de cédula:</label>
-          <input type="text" maxlength="10" class="form-control" name="identity" id="identity" required>
+          <input type="text" maxlength="10" class="form-control" name="identity" id="identity"
+                 value="{{ old('identity') }}" required>
         </div>
         <div class="form-group">
           <label for="email">Correo electrónico:</label>
-          <input type="email" class="form-control" name="email" id="email" required>
+          <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}" required>
         </div>
         <div class="form-group">
           <label for="password">Contraseña:</label>

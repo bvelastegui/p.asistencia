@@ -1,13 +1,20 @@
 @extends('layouts.admin')
 
 @section('content')
+  @if(is_null($selected_user) AND $errors->any())
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            $('#addUser').trigger('click')
+        })
+    </script>
+  @endif
   <div class="{{ is_null($selected_user) ? 'container' : 'container-fluid'  }}">
     <div class="row">
       <div class="{{ is_null($selected_user) ? 'col-md-12': 'col-md-3' }}">
         <div class="card">
           <div class="list-group list-group-flush">
             <div class="list-group-item">
-              <button class="btn btn-secondary btn-block" data-toggle="modal" data-target="#userModal">
+              <button class="btn btn-secondary btn-block" data-toggle="modal" data-target="#userModal" id="addUser">
                 Añadir usuario
               </button>
             </div>
@@ -36,7 +43,7 @@
                     @method('put')
                     @if($user->active)
                       <button title="Desactivar usuario" class="btn btn-sm btn-danger d-flex justify-content-start mt-2"
-                               type="submit" name="active" value="0">
+                              type="submit" name="active" value="0">
                         <i class="mr-2 material-icons">visibility_off</i>
                         <span class="p-1">Deshabilitar usuario</span>
                       </button>
